@@ -57,7 +57,7 @@ bigint bigint::operator<<(int shift) const
 
 bigint bigint::operator<<(const bigint &shift) const
 {
-	return *this << shift.to_int();
+	return *this << shift.toInt();
 }
 
 bigint bigint::operator>>(int shift) const
@@ -73,7 +73,7 @@ bigint bigint::operator>>(int shift) const
 
 bigint bigint::operator>>(const bigint &shift) const
 {
-        return *this >> shift.to_int();
+        return *this >> shift.toInt();
 }
 
 bigint &bigint::operator<<=(int shift)
@@ -132,7 +132,7 @@ bool bigint::operator>=(const bigint &other) const
         return *this > other || *this == other;
 }
 
-int bigint::to_int() const
+int bigint::toInt() const
 {
 	int result = 0;
 	for (size_t i = 0; i < num.size(); i++)
@@ -142,5 +142,5 @@ int bigint::to_int() const
 
 std::ostream &operator<<(std::ostream &os, const bigint &b)
 {
-	return os << b.get_num();
+	return os << b.getNum();
 }
