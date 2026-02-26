@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BIGINT_HPP
-#define BIGINT_HPP
+#pragma once
 
 #include <string>
 #include <iostream>
@@ -38,17 +37,16 @@ class bigint {
 		bigint& operator<<=(int shift);
 		bigint& operator<<=(const bigint &shift);
 
-		bool operator>(const bigint &other);
-		bool operator<(const bigint &other);
-		bool operator==(const bigint &other);
-		bool operator!=(const bigint &other);
-		bool operator>=(const bigint &other);
-		bool operator<=(const bigint &other);
+		bool operator>(const bigint &other) const;
+		bool operator<(const bigint &other) const;
+		bool operator==(const bigint &other) const;
+		bool operator!=(const bigint &other) const;
+		bool operator>=(const bigint &other) const;
+		bool operator<=(const bigint &other) const;
 
 		int toInt() const;
 		std::string getNum() const;
+
 };
 
-std::ostream& operator<<(std::ostream &os, const bigint &b);
-
-#endif
+std::ostream &operator<<(std::ostream &s, const bigint &b);

@@ -1,86 +1,63 @@
 #include "vect2.hpp"
-#include <ostream>
 #include <iostream>
 
-int main()
+int	main()
 {
-    std::cout << "=== Vect2 Test ===" << std::endl;
+	vect2		v1;
+	vect2		v2(1, 2);
+	const vect2	v3(v2);
+	vect2		v4 = v2;
 
-    // Test constructors
-    vect2 a(2, 3);
-    vect2 b(4, 5);
-    vect2 c;    // default (0, 0)
-    vect2 d(1); // (1, 0)
+	std::cout << "=== Ostream ======================" << std::endl;
+	std::cout << "v1: " << v1 << "\t| should be {0, 0}" << std::endl;
+	std::cout << "v1: " << "{" << v1[0] << ", " << v1[1] << "}" << "\t| should be {0, 0}" << std::endl;
+	std::cout << "v2: " << v2 << "\t| should be {1, 2}" << std::endl;
+	std::cout << "v3: " << v3 << "\t| should be {1, 2}" << std::endl;
+	std::cout << "v4: " << v4 << "\t| should be {1, 2}" << std::endl;
 
-    std::cout << "a = " << a << std::endl;
-    std::cout << "b = " << b << std::endl;
-    std::cout << "c = " << c << std::endl;
-    std::cout << "d = " << d << std::endl;
+	std::cout << "\n=== Increments & Decrements ======" << std::endl;
+	std::cout << "v4: " << v4 << "\t| should be {1, 2}" << std::endl;
+	std::cout << "                |" << std::endl;
+	std::cout << "v4++: " << v4++ << "\t| should be {1, 2}" << std::endl;
+	std::cout << "++v4: " << ++v4 << "\t| should be {3, 4}" << std::endl;
+	std::cout << "v4--: " << v4-- << "\t| should be {3, 4}" << std::endl;
+	std::cout << "--v4: " << --v4 << "\t| should be {1, 2}" << std::endl;
+	std::cout << "                |" << std::endl;
+	std::cout << "v4: " << v4 << "\t| should be {1, 2}" << std::endl;
 
-    // Test addition
-    std::cout << "\n=== Addition Tests ===" << std::endl;
-    vect2 sum = a + b;
-    std::cout << a << " + " << b << " = " << sum << std::endl;
-    std::cout << "Expected: {6, 8}" << std::endl;
+	std::cout << "\n=== Miscs ========================" << std::endl;
 
-    // Test subtraction
-    std::cout << "\n=== Subtraction Tests ===" << std::endl;
-    vect2 diff = a - b;
-    std::cout << a << " - " << b << " = " << diff << std::endl;
-    std::cout << "Expected: {-2, -2}" << std::endl;
+	std::cout << "Initial values:" << std::endl;
+	std::cout << "v1: " << v1 << "\t| should be {0, 0}" << std::endl;
+	std::cout << "v2: " << v2 << "\t| should be {1, 2}" << std::endl;
+	std::cout << "v3: " << v3 << "\t| should be {1, 2}" << std::endl;
+	std::cout << "\nCompound and arithmetic ops:" << std::endl;
+	v2 += v3;
+	std::cout << "v2 += v3 -> " << v2 << "\t\t| should be {2, 4}" << std::endl;
+	v1 -= v2;
+	std::cout << "v1 -= v2 -> " << v1 << "\t\t| should be {-2, -4}" << std::endl;
+	v2 = v3 + v3 * 2;
+	std::cout << "v2 = v3 + v3 * 2 -> " << v2 << "\t| should be {3, 6}" << std::endl;
+	v2 = 3 * v2;
+	std::cout << "v2 = 3 * v2 -> " << v2 << "\t\t| should be {9, 18}" << std::endl;
+	v2 += v2 += v3;
+	std::cout << "v2 += v2 += v3 -> " << v2 << "\t| should be {20, 40}" << std::endl;
+	v1 *= 42;
+	std::cout << "v1 *= 42 -> " << v1 << "\t\t| should be {-84, -168}" << std::endl;
+	v1 = v1 - v1 + v1;
+	std::cout << "v1 = v1 - v1 + v1 -> " << v1 << "| should be {-84, -168}" << std::endl;
+	std::cout << "\nUnary and access ops:" << std::endl;
+	std::cout << "-v2: " << -v2 << "\t| should be {-20, -40}\n" << std::endl;
+	std::cout << "v1[1]: " << v1[1] << "\t| should be -168" << std::endl;
+	std::cout << "v1[1] = 12      |" << std::endl;
+	v1[1] = 12;
+	std::cout << "v1[1]: " << v1[1] << "\t| should be 12\n" << std::endl;
+	std::cout << "v3[1]: " << v3[1] << "\t| should be 2" << std::endl;
 
-    // Test scalar multiplication (subject example)
-    std::cout << "\n=== Scalar Multiplication Tests ===" << std::endl;
-    vect2 v1(2, 2);
-    vect2 result = v1 * 2;
-    std::cout << v1 << " * 2 = " << result << std::endl;
-    std::cout << "Expected: {4, 4}" << std::endl;
-    std::cout << "Subject test (vect2(2,2) * 2 == vect2(4,4)): "
-              << ((result[0] == 4 && result[1] == 4) ? "PASS" : "FAIL") << std::endl;
+	std::cout << "\n=== Comparisons ==================" << std::endl;
 
-    // More scalar tests
-    vect2 v2(3, -1);
-    std::cout << v2 << " * 3 = " << (v2 * 3) << std::endl;
-    std::cout << v2 << " * 0 = " << (v2 * 0) << std::endl;
-    std::cout << v2 << " * -2 = " << (v2 * -2) << std::endl;
-
-    // Test index operator []
-    std::cout << "\n=== Index Operator Tests ===" << std::endl;
-    vect2 v3(10, 20);
-    std::cout << "v3 = " << v3 << std::endl;
-    std::cout << "v3[0] = " << v3[0] << std::endl;
-    std::cout << "v3[1] = " << v3[1] << std::endl;
-
-    // Test modifying through index operator
-    v3[0] = 100;
-    v3[1] = 200;
-    std::cout << "After v3[0] = 100, v3[1] = 200:" << std::endl;
-    std::cout << "v3 = " << v3 << std::endl;
-
-    // Test const index operator
-    const vect2 v4(7, 8);
-    std::cout << "const v4 = " << v4 << std::endl;
-    std::cout << "v4[0] = " << v4[0] << ", v4[1] = " << v4[1] << std::endl;
-
-    // Test output format exactly as specified in subject
-    std::cout << "\n=== Output Format Test ===" << std::endl;
-    vect2 v5(42, -13);
-    std::cout << "Output format test: " << v5 << std::endl;
-    std::cout << "Should match format: {42, -13}" << std::endl;
-
-    // Test chain operations
-    std::cout << "\n=== Chain Operations ===" << std::endl;
-    vect2 v6(1, 2);
-    vect2 v7(3, 4);
-    vect2 v8(5, 6);
-
-    vect2 chain_result = (v6 + v7) * 2 - v8;
-    std::cout << "(" << v6 << " + " << v7 << ") * 2 - " << v8 << " = " << chain_result << std::endl;
-    std::cout << "Step by step:" << std::endl;
-    std::cout << "  " << v6 << " + " << v7 << " = " << (v6 + v7) << std::endl;
-    std::cout << "  " << (v6 + v7) << " * 2 = " << ((v6 + v7) * 2) << std::endl;
-    std::cout << "  " << ((v6 + v7) * 2) << " - " << v8 << " = " << chain_result << std::endl;
-
-    std::cout << "\n=== All Tests Complete ===" << std::endl;
-    return 0;
+	std::cout << "v1 == v3: " << (v1 == v3) << "\t| should be 0" << std::endl;
+	std::cout << "v1 == v1: " << (v1 == v1) << "\t| should be 1" << std::endl;
+	std::cout << "v1 != v3: " << (v1 != v3) << "\t| should be 1" << std::endl;
+	std::cout << "v1 != v1: " << (v1 != v1) << "\t| should be 0" << std::endl;
 }
