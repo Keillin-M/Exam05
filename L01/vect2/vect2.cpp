@@ -111,5 +111,5 @@ vect2 operator*(int scalar, const vect2 &other) {
 }
 
 std::ostream &operator<<(std::ostream &s, const vect2 &v) {
-	return (s << "{" << v[0] << ", " << v[1] << "}" << std::endl);
+	return (s << "{" << v[0] << ", " << v[1] << "}");
 }
