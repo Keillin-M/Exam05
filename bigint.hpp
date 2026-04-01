@@ -33,8 +33,8 @@ public:
 	bool operator<=(const bigint &other) const;
 	bool operator>=(const bigint &other) const;
 
-	int toInt() const;
-	const std::string &getNum() const { return num; }
+	int to_int() const;
+	const std::string &get_num() const { return num; }
 };
 
 std::ostream &operator<<(std::ostream &os, const bigint &b);
