@@ -6,29 +6,30 @@
 /*   By: kmaeda <kmaeda@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 16:38:18 by kmaeda            #+#    #+#             */
-/*   Updated: 2026/03/17 18:54:34 by kmaeda           ###   ########.fr       */
+/*   Updated: 2026/04/20 22:40:55 by kmaeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int min3(int a,int b,int c){return a < b && a < c ? a : b < c ? b : c;}
+int min3(int a, int b, int c){ return a < b && a < c ? a : b < c ? b : c; }
 
 int parse_map(FILE *f, int *rows, char *empty, char *obst, char *full, char ***grid, int *cols){
     int r;
-    char e,o,x;
-    if(fscanf(f, "%d %c %c %c\n", &r, &e, &o, &x) != 4|| r <= 0|| e == o || e == x || o == x) 
+    char e, o, x;
+    if(fscanf(f, "%d %c %c %c\n", &r, &e, &o, &x) != 4 || r <= 0|| e == o || e == x || o == x) 
         return -1;
-    *rows=r; 
-    *empty=e; 
-    *obst=o; 
-    *full=x;
+    *rows = r; 
+    *empty = e; 
+    *obst = o; 
+    *full = x;
 
-    *grid=malloc(r*sizeof(char*)); 
-    *cols=0;
-    char *line=NULL; 
+    *grid = malloc(r * sizeof(char*)); 
+    *cols = 0;
+    char *line = NULL; 
     size_t capacity = 0;
     for (int i = 0; i < r ; i++) {
         ssize_t len = getline(&line, &capacity, f);
@@ -43,7 +44,7 @@ int parse_map(FILE *f, int *rows, char *empty, char *obst, char *full, char ***g
             return -1;
         }
         (*grid)[i] = malloc(*cols + 1);
-        for(int j = 0;j < *cols; j++) {
+        for(int j = 0; j < *cols; j++) {
             char c = line[j];
             if(c != *empty && c != *obst) {
                 free(line); 
@@ -58,50 +59,50 @@ int parse_map(FILE *f, int *rows, char *empty, char *obst, char *full, char ***g
 }
 
 void free_map(char **grid,int rows){ 
-    for(int i = 0; i < rows; i++) {
+    for(int i = 0; i < rows; i++)
         free(grid[i]); 
-        free(grid);
-    }
+    free(grid);
 }
 
 void solve(char **grid, int rows, int cols, char full, char obst) {
     int **dp = malloc(rows * sizeof(int*));
-    for (int i = 0; i < rows; i++) dp[i] = calloc(cols, sizeof(int));
+    for (int i = 0; i < rows; i++) 
+        dp[i] = calloc(cols, sizeof(int));
     int best = 0, bx = 0, by = 0;
 
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             if (grid[i][j] == obst) 
                 dp[i][j] = 0;
-            else if (i == 0|| j == 0) 
+            else if (i == 0 || j == 0) 
                 dp[i][j] = 1;
             else 
                 dp[i][j] = 1 + min3(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
-            if( dp[i][j] > best) {
+            if(dp[i][j] > best) {
                 best = dp[i][j]; 
-                bx = i; 
+                bx = i;
                 by = j;
             }
         }
     }
 
-    for (int i = 0; i < best; i++)
+    for (int i = 0; i < best; i++) { // fill the biggest square
         for (int j = 0; j < best; j++)
-            grid[bx-i][by-j]=full;
-
-    for (int i = 0; i < rows; i++) {
-        fputs(grid[i],stdout); 
-        fputc('\n',stdout);
+            grid[bx - i][by - j] = full;
     }
-    for (int i = 0; i < rows; i++) 
+    for (int i = 0; i < rows; i++) { // print result
+        fputs(grid[i], stdout); 
+        fputc('\n', stdout);
+    }
+    for (int i = 0; i < rows; i++)
         free(dp[i]);
     free(dp);
 }
 
 int process_file(const char *path) {
-    FILE *f = strcmp(path,"-")== 0 ? stdin : fopen(path,"r");
+    FILE *f = strcmp(path, "-") == 0 ? stdin : fopen(path, "r");
     if(!f) {
-        fputs("map error\n",stderr); 
+        fputs("map error\n", stderr); 
         return -1;
     }
     int rows, cols; 
@@ -123,12 +124,12 @@ int process_file(const char *path) {
 int main(int argc,char **argv){
     if (argc <= 1) {
         process_file("-"); 
-        fputc('\n',stdout); 
+      //  fputc('\n',stdout); 
         return 0;
     }
     for (int i = 1; i < argc; i++) {
         process_file(argv[i]); 
-        fputc('\n', stdout);
+     //   fputc('\n', stdout);
     }
     return 0;
 }
