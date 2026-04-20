@@ -6,7 +6,11 @@
 /*   By: kmaeda <kmaeda@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 16:38:18 by kmaeda            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/04/20 23:13:49 by kmaeda           ###   ########.fr       */
+=======
+/*   Updated: 2026/04/20 22:40:55 by kmaeda           ###   ########.fr       */
+>>>>>>> a73b286 (update bsq)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +24,26 @@ int min3(int a, int b, int c){ return a < b && a < c ? a : b < c ? b : c; }
 int parse_map(FILE *f, int *rows, char *empty, char *obst, char *full, char ***grid, int *cols){
     int r;
     char e, o, x;
+<<<<<<< HEAD
     if(fscanf(f, "%d %c %c %c\n", &r, &e, &o, &x) != 4|| r <= 0|| e == o || e == x || o == x) 
+=======
+    if(fscanf(f, "%d %c %c %c\n", &r, &e, &o, &x) != 4 || r <= 0|| e == o || e == x || o == x) 
+>>>>>>> a73b286 (update bsq)
         return -1;
     *rows = r; 
     *empty = e; 
     *obst = o; 
     *full = x;
 
+<<<<<<< HEAD
     *grid = malloc(r*sizeof(char*)); 
     *cols = 0;
     char *line=NULL; 
+=======
+    *grid = malloc(r * sizeof(char*)); 
+    *cols = 0;
+    char *line = NULL; 
+>>>>>>> a73b286 (update bsq)
     size_t capacity = 0;
     for (int i = 0; i < r ; i++) {
         ssize_t len = getline(&line, &capacity, f);
@@ -122,11 +136,23 @@ int process_file(const char *path) {
 }
 
 int main(int argc,char **argv){
+<<<<<<< HEAD
     if (argc < 2) {
         process_file("-");  
         return 0;
     }
     for (int i = 1; i < argc; i++)
         process_file(argv[i]);
+=======
+    if (argc <= 1) {
+        process_file("-"); 
+      //  fputc('\n',stdout); 
+        return 0;
+    }
+    for (int i = 1; i < argc; i++) {
+        process_file(argv[i]); 
+     //   fputc('\n', stdout);
+    }
+>>>>>>> a73b286 (update bsq)
     return 0;
 }
