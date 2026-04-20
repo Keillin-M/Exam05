@@ -6,7 +6,11 @@
 /*   By: kmaeda <kmaeda@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 16:38:18 by kmaeda            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/04/20 22:40:55 by kmaeda           ###   ########.fr       */
+=======
+/*   Updated: 2026/03/20 12:48:34 by kmaeda           ###   ########.fr       */
+>>>>>>> origin/L2
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +23,24 @@ int min3(int a, int b, int c){ return a < b && a < c ? a : b < c ? b : c; }
 
 int parse_map(FILE *f, int *rows, char *empty, char *obst, char *full, char ***grid, int *cols){
     int r;
+<<<<<<< HEAD
     char e, o, x;
     if(fscanf(f, "%d %c %c %c\n", &r, &e, &o, &x) != 4 || r <= 0|| e == o || e == x || o == x) 
+=======
+    char e, o, x, extra;
+    if(fscanf(f, "%d %c %c %c\n", &r, &e, &o, &x) != 4|| r <= 0|| e == o || e == x || o == x || fscanf(f, " %c", &extra) == 1) 
+>>>>>>> origin/L2
         return -1;
     *rows = r; 
     *empty = e; 
     *obst = o; 
     *full = x;
 
+<<<<<<< HEAD
     *grid = malloc(r * sizeof(char*)); 
+=======
+    *grid = malloc(r*sizeof(char*)); 
+>>>>>>> origin/L2
     *cols = 0;
     char *line = NULL; 
     size_t capacity = 0;
@@ -100,31 +113,39 @@ void solve(char **grid, int rows, int cols, char full, char obst) {
 }
 
 int process_file(const char *path) {
+<<<<<<< HEAD
     FILE *f = strcmp(path, "-") == 0 ? stdin : fopen(path, "r");
+=======
+    FILE *f = strcmp(path,"-") == 0 ? stdin : fopen(path,"r");
+>>>>>>> origin/L2
     if(!f) {
         fputs("map error\n", stderr); 
         return -1;
     }
-    int rows, cols; 
-    char empty, obst, full; 
+    int row, col; 
+    char e, o, x; 
     char **grid;
-    if(parse_map(f, &rows, &empty, &obst, &full, &grid, &cols) != 0) {
+    if(parse_map(f, &row, &e, &o, &x, &grid, &col) != 0) {
         fputs("map error\n", stderr); 
         if (f != stdin) {
             fclose(f); 
             return -1;
         }
     }
-    solve(grid, rows, cols, full, obst);
-    free_map(grid, rows);
+    solve(grid, row, col, x, o);
+    free_map(grid, row);
     if(f!=stdin) fclose(f);
     return 0;
 }
 
 int main(int argc,char **argv){
-    if (argc <= 1) {
+    if (argc < 2) {
         process_file("-"); 
+<<<<<<< HEAD
       //  fputc('\n',stdout); 
+=======
+        fputc('\n', stdout); 
+>>>>>>> origin/L2
         return 0;
     }
     for (int i = 1; i < argc; i++) {
