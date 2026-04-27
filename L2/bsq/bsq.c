@@ -101,14 +101,14 @@ void solve(char **grid, int rows, int cols, char full, char obst) {
 
 int process_file(const char *path) {
     FILE *f = strcmp(path, "-") == 0 ? stdin : fopen(path, "r");
-    if(!f) {
+    if (!f) {
         fputs("map error\n", stderr); 
         return -1;
     }
     int row, col; 
     char e, o, x; 
     char **grid;
-    if(parse_map(f, &row, &e, &o, &x, &grid, &col) != 0) {
+    if (parse_map(f, &row, &e, &o, &x, &grid, &col) != 0) {
         fputs("map error\n", stderr); 
         if (f != stdin) {
             fclose(f); 
@@ -117,19 +117,17 @@ int process_file(const char *path) {
     }
     solve(grid, row, col, x, o);
     free_map(grid, row);
-    if(f!=stdin) fclose(f);
+    if(f! = stdin) 
+        fclose(f);
     return 0;
 }
 
-int main(int argc,char **argv){
+int main(int argc, char **argv){
     if (argc < 2) {
-        process_file("-"); 
-      //  fputc('\n',stdout); 
+        process_file("-");
         return 0;
     }
-    for (int i = 1; i < argc; i++) {
+    for (int i = 1; i < argc; i++)
         process_file(argv[i]); 
-     //   fputc('\n', stdout);
-    }
     return 0;
 }
