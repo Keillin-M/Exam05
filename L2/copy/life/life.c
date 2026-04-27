@@ -91,7 +91,7 @@ int main(int ac, char **av){
 	char command;
 
 	while (read(0, &command, 1) > 0){
-		switch (command){
+		switch (command) {
 			case 'w':
 				if (pen.y > 0)
 					pen.y--;

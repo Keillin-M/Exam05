@@ -24,7 +24,8 @@ int count_neighbors(char **b, int y, int x, int w, int h) {
     int c = 0;
     for (int dy = -1; dy <= 1; dy++) {
 		for (int dx = -1; dx <= 1; dx++) {
-        	if ((dx || dy) && y+dy >= 0 && y+dy < h && x+dx >= 0 && x+dx < w && b[y+dy][x+dx] == 'O') 
+        	if ((dx || dy) && y + dy >= 0 && y + dy < h && x + dx >= 0 && x + dx < w 
+                && b[y + dy][x + dx] == 'O') 
 				c++;
 		}
 	}
@@ -63,11 +64,11 @@ int main(int ac, char **av) {
     while (read(0, &cmd, 1) > 0) {
         if (cmd == 'w' && p.y > 0) 
 			p.y--;
-        else if (cmd == 's' && p.y < h-1) 
+        else if (cmd == 's' && p.y < h - 1) 
 			p.y++;
         else if (cmd == 'a' && p.x > 0) 
 			p.x--;
-        else if (cmd == 'd' && p.x < w-1) 
+        else if (cmd == 'd' && p.x < w - 1) 
 			p.x++;
         else if (cmd == 'x') 
 			p.draw = !p.draw;
