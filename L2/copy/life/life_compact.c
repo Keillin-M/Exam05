@@ -32,20 +32,17 @@ int count_neighbors(char **b, int y, int x, int w, int h) {
     return c;
 }
 
-void iter_game(char **b, int w, int h) {
+void iter_game(char ***b, int w, int h) {
     char **nb = create_board(w, h);
     for (int y = 0; y < h; y++) {
 		for (int x = 0; x < w; x++) {
-        	int n = count_neighbors(b, y, x, w, h);
-        	if (b[y][x] == 'O' ? (n == 2 || n == 3) : n == 3) 
+        	int n = count_neighbors(*b, y, x, w, h);
+        	if ((*b)[y][x] == 'O' ? (n == 2 || n == 3) : n == 3) 
 				nb[y][x] = 'O';
    		}
 	}
-    for (int y = 0; y < h; y++) {
-		for (int x = 0; x < w; x++) 
-			b[y][x] = nb[y][x];
-	}
-    free_board(nb, h);
+    free_board(*b, h);
+    *b = nb;
 }
 
 void print_board(char **b, int w, int h) {
@@ -72,12 +69,11 @@ int main(int ac, char **av) {
 			p.x++;
         else if (cmd == 'x') 
 			p.draw = !p.draw;
-        if (p.draw && (cmd == 'w' || cmd == 'a' || cmd == 's' || cmd == 'd' || cmd == 'x')) 
+        if (p.draw && (cmd == 'w' || cmd == 'a' || cmd == 's' || cmd == 'd')) 
 			b[p.y][p.x] = 'O';
     }
-    print_board(b, w, h);
     for (int i = 0; i < it; i++) 
-		iter_game(b, w, h);
+		iter_game(&b, w, h);
     print_board(b, w, h);
     free_board(b, h);
     return 0;
