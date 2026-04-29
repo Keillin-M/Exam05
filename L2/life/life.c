@@ -87,12 +87,9 @@ int main(int argc, char** argv) {
             p.x--;
         else if (cmd == 'd' && p.x < w - 1)
             p.x++;
-        else if (cmd == 'x') {
+        else if (cmd == 'x')
             p.draw = !p.draw;
-            if (p.draw)
-                b[p.y][p.x] = 1;
-        }
-        if (p.draw && (cmd == 'w' || cmd == 's' || cmd == 'a' || cmd == 'd'))
+        if (p.draw && (cmd == 'w' || cmd == 's' || cmd == 'a' || cmd == 'd' || cmd == 'x'))
             b[p.y][p.x] = 1;
     }
     for (int i = 0; i < it; i++)
